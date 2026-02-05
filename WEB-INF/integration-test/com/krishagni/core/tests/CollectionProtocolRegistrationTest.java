@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +50,7 @@ import com.krishagni.core.tests.testdata.CprTestData;
     DbUnitTestExecutionListener.class })
 @WebAppConfiguration
 public class CollectionProtocolRegistrationTest {
-	@Resource
+	@jakarta.annotation.Resource
     private WebApplicationContext webApplicationContext;
 	
 	@Autowired

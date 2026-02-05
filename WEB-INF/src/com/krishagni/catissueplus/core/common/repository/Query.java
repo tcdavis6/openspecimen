@@ -3,7 +3,7 @@ package com.krishagni.catissueplus.core.common.repository;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.LockModeType;
+import jakarta.persistence.LockModeType;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.hibernate.LockMode;

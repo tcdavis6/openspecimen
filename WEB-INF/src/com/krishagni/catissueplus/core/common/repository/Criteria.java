@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Selection;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Selection;
 
 import org.hibernate.Session;
 
@@ -125,7 +125,7 @@ public class Criteria<R> extends AbstractCriteria<Criteria<R>, R> {
 
 	public Criteria<R> addOrder(Order order) {
 		CriteriaQuery<R> cq = (CriteriaQuery<R>) query;
-		List<javax.persistence.criteria.Order> orderList = cq.getOrderList();
+		List<jakarta.persistence.criteria.Order> orderList = cq.getOrderList();
 		if (orderList == null || orderList.isEmpty()) {
 			orderList = new ArrayList<>();
 			cq.orderBy(orderList);

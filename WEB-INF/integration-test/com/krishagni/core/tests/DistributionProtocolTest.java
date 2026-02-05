@@ -1,6 +1,6 @@
 package com.krishagni.core.tests;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import java.util.Calendar;
 import java.util.Date;

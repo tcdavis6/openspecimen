@@ -1,6 +1,6 @@
 package com.krishagni.core.common;
 
-import javax.servlet.RequestDispatcher;
+import jakarta.servlet.RequestDispatcher;
 
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;

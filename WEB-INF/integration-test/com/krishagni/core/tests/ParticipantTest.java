@@ -3,7 +3,7 @@ package com.krishagni.core.tests;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

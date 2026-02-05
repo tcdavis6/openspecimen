@@ -2,7 +2,7 @@ package com.krishagni.core.tests;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,7 +38,6 @@ import com.krishagni.core.common.ApplicationContextConfigurer;
 import com.krishagni.core.common.TestUtils;
 import com.krishagni.core.common.WebContextLoader;
 import com.krishagni.core.tests.testdata.CommonUtils;
-import com.krishagni.core.tests.testdata.CommonUtils;
 import com.krishagni.core.tests.testdata.SpecimenRequirementTestData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,7 +48,7 @@ import com.krishagni.core.tests.testdata.SpecimenRequirementTestData;
     DbUnitTestExecutionListener.class })
 @WebAppConfiguration
 public class SpecimenRequirementTest {
-	@Resource
+	@jakarta.annotation.Resource
     private WebApplicationContext webApplicationContext;
 	
 	@Autowired

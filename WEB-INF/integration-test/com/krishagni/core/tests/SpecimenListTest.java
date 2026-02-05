@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.text.SimpleDateFormat;
-import javax.annotation.Resource;
 
+import jakarta.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +53,7 @@ import com.krishagni.core.tests.testdata.CommonUtils;
 
 @WebAppConfiguration
 public class SpecimenListTest {
-	@Resource 
+	@jakarta.annotation.Resource
 	private WebApplicationContext webApplicationContext;
 	
 	@Autowired 

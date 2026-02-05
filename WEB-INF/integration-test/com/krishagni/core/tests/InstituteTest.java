@@ -3,7 +3,7 @@ package com.krishagni.core.tests;
 import java.util.List; 
 import java.util.Map;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,7 +50,7 @@ import org.springframework.web.context.WebApplicationContext;
     DbUnitTestExecutionListener.class })
 @WebAppConfiguration
 public class InstituteTest {
-	@Resource
+	@jakarta.annotation.Resource
 	private WebApplicationContext webApplicationContext;
 	
 	@Autowired
