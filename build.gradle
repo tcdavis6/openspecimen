@@ -7,7 +7,7 @@ apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-archivesBaseName = 'openspecimen'
+base.archivesName = 'openspecimen'
 
 Properties props = new Properties()
 props.load(new FileInputStream("build.properties"))
@@ -49,21 +49,10 @@ sourceSets {
   main.resources.srcDirs = ['WEB-INF/resources']
 }
 
-tasks.withType(JavaCompile) {
-  options.compilerArgs += ['-parameters']
-}
-
 description = "openspecimen"
 
 repositories {
   mavenCentral()
-
-  maven {
-    url "https://build.shibboleth.net/nexus/content/repositories/releases/"
-  }
-  maven {
-    url "https://build.shibboleth.net/maven/releases/"
-  }
 }
 
 configurations {
@@ -83,14 +72,13 @@ configurations.all {
 dependencies {
   ajc       "org.aspectj:aspectjtools:1.9.19"
   implementation   "org.aspectj:aspectjrt:1.9.19"
-  aspects   "org.springframework:spring-aspects:6.2.16"
+  aspects   "org.springframework:spring-aspects:5.3.22"
 
   implementation fileTree(dir: 'lib', include: ['os-dynamic-forms-trunk.jar', 'os-tinymce.jar'])
   
-  implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.2.0'
-  implementation group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.1.0'
-  implementation group: 'org.antlr', name: 'antlr4', version:'4.13.2'
-  implementation group: 'org.antlr', name: 'antlr4-runtime', version:'4.13.2'
+  implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+  implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+  implementation group: 'org.antlr', name: 'antlr4', version:'4.5.1'
   implementation group: 'aopalliance', name: 'aopalliance', version:'1.0'
   implementation group: 'asm', name: 'asm', version:'3.3.1'
   implementation group: 'org.aspectj', name: 'aspectjweaver', version:'1.9.19'
@@ -102,39 +90,34 @@ dependencies {
   implementation group: 'commons-io', name: 'commons-io', version:'2.18.0'
   implementation group: 'org.apache.commons', name: 'commons-collections4', version:'4.4'
   implementation group: 'org.apache.commons', name: 'commons-digester3', version:'3.2'
-  implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.17.0'
+  implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.12.0'
   implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.27.1'
-  implementation group: 'org.apache.commons', name: 'commons-text', version: '1.15.0'
   implementation group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version: '1.2.5'
-  implementation group: 'org.apache.tika', name: 'tika-core', version: '3.3.1'
-  implementation group: 'org.apache.tika', name: 'tika-parsers-standard-package', version: '3.3.1'
+  implementation group: 'org.apache.tika', name: 'tika-core', version: '1.28.4'
+  implementation group: 'org.apache.tika', name: 'tika-parsers', version: '1.28.4'
   implementation group: 'net.sf.kxml', name: 'kxml2-min', version:'2.3.0'
   implementation group: 'net.sf.ehcache', name: 'ehcache', version:'1.2.3'
   implementation group: 'net.sf.opencsv', name: 'opencsv', version:'2.3'
   implementation group: 'com.google.code.gson', name: 'gson', version:'2.8.9'
   implementation group: 'org.hibernate.common', name: 'hibernate-commons-annotations', version:'6.0.4.Final'
-  implementation group: 'org.hibernate.orm', name: 'hibernate-core', version:'7.2.4.Final'
-  implementation group: 'org.hibernate.orm', name: 'hibernate-envers', version:'7.2.4.Final'
-  implementation group: 'org.hibernate.models', name: 'hibernate-models', version: '1.0.1'
-  implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.17.8'
-  implementation group: 'com.fasterxml', name: 'classmate', version: '1.7.3'
-  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.22'
-  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.22.1'
-  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.22.1'
-  implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version:'2.22.1'
+  implementation group: 'org.hibernate', name: 'hibernate-core', version:'5.6.11.Final'
+  implementation group: 'org.hibernate', name: 'hibernate-envers', version:'5.6.11.Final'
+  implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.8.22'
+  implementation group: 'com.fasterxml', name: 'classmate', version: '1.4.0'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.13.1'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.13.1'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.13.1'
   implementation group: 'org.javassist', name: 'javassist', version:'3.19.0-GA'
-  implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '4.0.6'
-  implementation group: 'org.glassfish.jaxb', name: 'jaxb-core', version: '4.0.6'
-  implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '4.0.6'
-  implementation group: 'org.glassfish.jaxb', name: 'txw2', version: '4.0.6'
-  implementation group: 'com.sun.istack', name: 'istack-commons-runtime', version: '4.1.2'
-  implementation group: 'org.glassfish.jaxb', name: 'jaxb-xjc', version:'4.0.6'
-  implementation group: 'org.jboss.logging', name: 'jboss-logging', version:'3.6.1.Final'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version:'2.3.0.1'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-xjc', version:'2.3.0.1'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-libs', version:'1.0.6'
+  implementation group: 'org.jboss.logging', name: 'jboss-logging', version:'3.3.2.Final'
   implementation group: 'org.scijava', name: 'jep', version:'2.4.2'
   implementation group: 'org.json', name: 'json', version:'20140107'
-  implementation group: 'jakarta.ws.rs', name: 'jakarta.ws.rs-api', version:'3.1.0'
-  implementation group: 'jakarta.transaction', name: 'jakarta.transaction-api', version:'2.0.1'
-  implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
+  implementation group: 'javax.ws.rs', name: 'jsr311-api', version:'1.1.1'
+  implementation group: 'javax.transaction', name: 'jta', version:'1.1'
+  implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
   implementation group: 'org.liquibase', name: 'liquibase-core', version:'4.8.0'
 
   implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
@@ -144,34 +127,30 @@ dependencies {
 
   implementation group: 'quartz', name: 'quartz', version:'1.5.2'
 
-  implementation group: 'org.springframework', name: 'spring-aspects', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-aop', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-beans', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-context', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-context-support', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-core', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-expression', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-instrument', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-jdbc', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-tx', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-web', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-webmvc', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-orm', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-messaging', version: '7.0.8'
-  implementation group: 'org.springframework', name: 'spring-jms', version: '7.0.8'
-  implementation group: 'org.springframework.integration', name: 'spring-integration-core', version: '7.0.5'
-  implementation group: 'org.springframework.integration', name: 'spring-integration-mail', version: '7.0.5'
-  implementation group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '4.0.4'
+  implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-aop', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-context', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-core', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-expression', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-instrument', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-web', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-messaging', version: '5.3.22'
+  implementation group: 'org.springframework', name: 'spring-jms', version: '5.3.22'
+  implementation group: 'org.springframework.integration', name: 'spring-integration-core', version: '5.5.14'
+  implementation group: 'org.springframework.integration', name: 'spring-integration-mail', version: '5.5.14'
+  implementation group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '2.4.1'
 
-  implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-config', version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-core',   version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-ldap',   version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-web',    version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-oauth2-core', version: '7.0.6'
-  implementation group: 'org.springframework.security', name: 'spring-security-oauth2-jose', version: '7.0.6'
-
-  implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '9.31'
+  implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.3'
+  implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.7.3'
+  implementation group: 'org.springframework.security', name: 'spring-security-core',   version: '5.7.3'
+  implementation group: 'org.springframework.security', name: 'spring-security-ldap',   version: '5.7.3'
+  implementation group: 'org.springframework.security', name: 'spring-security-web',    version: '5.7.3'
 
   implementation group: 'com.thoughtworks.xstream', name: 'xstream', version:'1.4.19'
   implementation group: 'com.itextpdf', name: 'itextpdf', version:'5.5.13.2'
@@ -199,71 +178,38 @@ dependencies {
 
   implementation group: 'com.google.zxing', name: 'core', version: '3.4.1'
 
-  implementation group: 'org.owasp.esapi', name: 'esapi', version: '2.2.0.0'
+  //SAML dependencies lib
+  implementation group: 'org.springframework.security.extensions', name: 'spring-security-saml2-core', version:'1.0.10.RELEASE'
+  implementation group: 'com.narupley', name: 'not-going-to-be-commons-ssl', version: '0.3.20'
+  implementation group: 'org.opensaml', name: 'opensaml', version: '2.6.4'
+  implementation group: 'org.opensaml', name: 'openws', version: '1.5.4'
+  implementation group: 'org.opensaml', name: 'xmltooling', version: '1.4.4'
+  implementation group: 'xml-security', name: 'xmlsec', version: '1.3.0'
+  implementation group: 'org.owasp.esapi', name: 'esapi', version: '2.1.0.1'
   implementation group: 'xerces', name: 'xercesImpl', version: '2.12.2'
-  implementation group: 'xalan', name: 'xalan', version: '2.7.3'
-  implementation group: 'xalan', name: 'serializer', version: '2.7.3'
+  implementation group: 'xalan', name: 'xalan', version: '2.7.2'
+  implementation group: 'xalan', name: 'serializer', version: '2.7.2'
+  implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.71.1'
   implementation group: 'joda-time', name: 'joda-time', version: '2.10'
   implementation group: 'org.apache.velocity', name: 'velocity-engine-core', version:'2.3'
 
-  implementation group: 'jakarta.activation', name: 'jakarta.activation-api', version: '2.1.2'
-  implementation group: 'org.eclipse.angus',  name: 'angus-activation', version: '2.0.2'
-
-  implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.4'
-  implementation group: 'jakarta.inject', name: 'jakarta.inject-api', version: '2.0.1'
-  implementation group: 'org.jspecify', name: 'jspecify', version: '1.0.0'
-
-  // New SAML library
-  implementation group: 'org.springframework.security', name: 'spring-security-saml2-service-provider', version: '7.0.6'
-  implementation group: 'org.opensaml', name: 'opensaml-core-api', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-core-impl', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-saml-api', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-saml-impl', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-soap-api', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-soap-impl', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-xmlsec-api', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-xmlsec-impl', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-security-api', version: '5.1.6'
-  implementation group: 'org.opensaml', name: 'opensaml-security-impl', version: '5.1.6'
-  implementation group: 'net.shibboleth.utilities', name: 'java-support', version: '8.1.0'
-  implementation group: 'net.shibboleth', name: 'shib-support', version: '9.1.6'
-  implementation group: 'net.shibboleth', name: 'shib-security', version: '9.1.6'
-  implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
-  implementation group: 'io.dropwizard.metrics', name: 'metrics-core', version: '4.2.37'
-  implementation group: 'org.cryptacular', name: 'cryptacular', version: '1.2.7'
-  implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.16'  // Core HTTP functionality
-  implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
-  implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.1'
-  implementation group: 'org.apache.httpcomponents.core5', name: 'httpcore5', version: '5.2.5'
-  implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.84'
-  implementation group: 'org.bouncycastle', name: 'bcpkix-jdk18on', version: '1.84'
-  implementation group: 'org.bouncycastle', name: 'bcutil-jdk18on', version: '1.84'
-  implementation group: 'org.apache.santuario', name: 'xmlsec', version: '2.3.0'
-
-  implementation group: 'io.micrometer', name: 'micrometer-commons', version: '1.16.1'
-  implementation group: 'io.micrometer', name: 'micrometer-core', version: '1.16.1'
-  implementation group: 'io.micrometer', name: 'micrometer-observation', version: '1.16.1'
-  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.16.1'
-  implementation group: 'io.prometheus', name: 'prometheus-metrics-model', version: '1.3.1'
-  implementation group: 'io.prometheus', name: 'prometheus-metrics-core', version: '1.3.1'
-  implementation group: 'io.prometheus', name: 'prometheus-metrics-config', version: '1.3.1'
-  implementation group: 'io.prometheus', name: 'prometheus-metrics-exposition-formats', version: '1.3.1'
-  implementation group: 'io.prometheus', name: 'prometheus-metrics-shaded-protobuf', version: '1.3.1'
+  implementation group: 'com.sun.activation', name: 'javax.activation', version: '1.2.0'
+  implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.3'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-ri', version: '2.3.3'
 
   runtimeOnly group: 'antlr', name: 'antlr', version: '2.7.7'
   runtimeOnly group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.16.0'
   runtimeOnly group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.16.0'
 
   testImplementation group: 'junit', name: 'junit', version:'4.13.1'
-  testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
 }
 
 compileJava {
-  options.release = 17
+  options.release = 16
 
   afterEvaluate {
     tasks.withType(JavaCompile) {
-      options.compilerArgs += ['-Xlint:deprecation', '-Xmaxwarns', '10000', '-Xmaxerrs',  '2000', '-parameters']
+      options.compilerArgs += ['-Xlint:deprecation', '-Xmaxwarns', '10000', '-Xmaxerrs',  '2000']
     }
   }
 
@@ -271,8 +217,8 @@ compileJava {
     ant.taskdef(resource: "org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties", 
                 classpath: configurations.ajc.asPath)
     ant.iajc(
-      source: 17,
-      target: 17,
+      source: 16,
+      target: 16,
       destDir: sourceSets.main.output.classesDirs.asPath,
       maxmem: "512m", 
       fork: "true",
@@ -325,12 +271,23 @@ processResources {
   }
 }
 
+task unzip_form_designer(type: Copy) {
+  def zipFile = file('./form-designer.zip')
+  def outputDir = file("${buildDir}/form-designer")
+  
+  from zipTree(zipFile) 
+  into outputDir
+}
+
 task create_war(type: War) {
   from ('./') {
-    include 'index.html'
-    include 'index-redirect.js'
+    include 'ngweb/**'
   }
-
+  
+  from ('./www/dist/') {
+    include '**/**'
+  }
+  
   from ('./WEB-INF/') {
     include 'resources/**'
     include 'applicationContext.xml'
@@ -356,11 +313,22 @@ task create_war(type: War) {
   
   manifest {
     attributes(
-      "Implementation-Title": archivesBaseName,
+      "Implementation-Title": project.base.archivesName.get(),
       "Implementation-Version": getBranch(),
       "Implementation-Timestamp": new Date()
     )
   }
+}
+
+def grunt_cmd = "grunt"
+
+if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+  grunt_cmd = "grunt.cmd"
+}
+
+task grunt_build(type: Exec) {
+  workingDir './www'
+  commandLine 'npx', 'grunt', 'build'
 }
 
 task vue_backup_src(type: Exec) {
@@ -386,7 +354,7 @@ task vue_build(type: Exec) {
 vue_install_dependencies.dependsOn vue_backup_src
 vue_restore_src.dependsOn vue_install_dependencies
 vue_build.dependsOn vue_restore_src
-create_war.dependsOn vue_build
+create_war.dependsOn unzip_form_designer, grunt_build, vue_build
 build.dependsOn create_war
 
 apply from: envScript
